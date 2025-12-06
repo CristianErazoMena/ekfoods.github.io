@@ -91,6 +91,13 @@
   margin-bottom: 2rem;
 }
 
+@media (max-width: 640px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
 .product-card {
   background: white;
   border-radius: 16px;
@@ -357,32 +364,68 @@
 
 @media (max-width: 768px) {
   .products-section {
-    padding: 3rem 0;
+    padding: 2rem 0;
+  }
+
+  .products-section h2 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .products-section .lead {
+    font-size: 1rem;
+    margin-bottom: 2rem;
   }
 
   .products-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .product-card {
+    border-radius: 12px;
   }
 
   .product-media {
-    height: 520px;
-    padding: 0;
+    max-height: min(45vh, 300px);
+  }
+
+  .product-body {
+    padding: 1rem;
+  }
+
+  .product-name {
+    font-size: 1rem;
+  }
+
+  .desc {
+    font-size: 0.85rem;
+    line-height: 1.4;
   }
 
   .category-filters {
-    gap: 0.75rem;
+    gap: 0.5rem;
+    padding: 0 0.5rem;
   }
 
   .filter-btn {
-    padding: 0.6rem 1.2rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .btn-whatsapp {
+    padding: 0.6rem 1rem;
     font-size: 0.9rem;
   }
 }
 
 @media (max-width: 480px) {
-  .products-grid {
-    grid-template-columns: 1fr;
+  .products-section {
+    padding: 1.5rem 0;
+  }
+
+  .container {
+    padding: 0 1rem;
   }
 
   .search-box {
@@ -390,10 +433,44 @@
   }
 
   .search-input {
-    padding: 0.9rem 1.2rem 0.9rem 2.8rem;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    font-size: 0.9rem;
+  }
+
+  .search-icon {
+    left: 1rem;
+    font-size: 1rem;
+  }
+
+  .products-grid {
+    gap: 0.75rem;
   }
 
   .product-media {
-    height: 420px;
+    max-height: min(40vh, 250px);
+  }
+
+  .product-body {
+    padding: 0.75rem;
+  }
+
+  .category-badge {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .product-name {
+    font-size: 0.9rem;
+    margin: 0.5rem 0 0.25rem;
+  }
+
+  .desc {
+    font-size: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .btn-whatsapp {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
   }
 }

@@ -133,19 +133,83 @@
 
 @media (max-width: 768px) {
   .hero {
-    height: 500px;
+    height: 450px;
   }
 
   .hero-content {
     padding: 1.5rem;
   }
 
+  .hero-content h1 {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-content .subtitle {
+    font-size: 1.1rem;
+  }
+
+  .hero-content .description {
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+  }
+
   .btn-primary {
-    padding: 0.8rem 2rem;
-    font-size: 1rem;
+    padding: 0.75rem 1.75rem;
+    font-size: 0.95rem;
   }
 
   .hero-dots {
     bottom: 1rem;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  .dot.active {
+    width: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    height: 380px;
+  }
+
+  .hero-content {
+    padding: 1rem;
+  }
+
+  .hero-content h1 {
+    font-size: 1.75rem;
+  }
+
+  .hero-content .subtitle {
+    font-size: 1rem;
+  }
+
+  .hero-content .description {
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .btn-primary {
+    padding: 0.65rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .hero-dots {
+    bottom: 0.75rem;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .dot.active {
+    width: 20px;
   }
 }
