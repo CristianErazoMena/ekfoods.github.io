@@ -1,0 +1,89 @@
+.about {
+	padding: 18rem 0 3.5rem 0; /* increased top padding so image sits well below the fixed header */
+	background: #fff;
+	scroll-margin-top: 180px; /* avoid anchor/header overlap when linking */
+}
+
+.about-grid {
+	display: grid;
+	grid-template-columns: 1fr 460px; /* text first, image on the right */
+	gap: 2.5rem;
+	align-items: center; /* center text and image vertically */
+	align-content: start;
+}
+
+.about-media {
+	display: flex;
+	align-items: center; /* center image vertically within its column */
+	justify-content: center; /* center image horizontally within its column */
+}
+
+.about-media img {
+	width: auto; /* keep image intrinsic width and allow centering */
+	max-width: 100%;
+	height: auto;
+	max-height: 520px; /* allow larger image to be visible */
+	object-fit: contain; /* show the whole image without cropping */
+	object-position: center center;
+	border-radius: 8px;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+	display: block;
+	margin: 0 auto;
+	background: #fff;
+	margin-top: 0; /* reset top margin since grid centers vertically */
+}
+
+.about-content h2 {
+	font-size: 1.35rem;
+	margin: 0 0 0.5rem 0;
+	color: #1f2937;
+	text-transform: uppercase;
+	letter-spacing: 0.6px;
+	text-align: left; /* titles left-aligned to match content */
+}
+
+.about-content {
+	padding-top: 0.75rem; /* small top padding so first title isn't overlapped */
+}
+
+.about-content h2 {
+	margin-top: 0.75rem; /* ensure visible spacing above each section title */
+}
+
+.about-content h2:first-of-type {
+	margin-top: 3rem; /* extra space specifically for the first title */
+}
+
+.about-content p {
+	color: #4b5563;
+	line-height: 1.8;
+	margin-bottom: 1.25rem;
+	font-size: 1rem;
+	text-align: left; /* keep paragraph text left-aligned */
+}
+
+.about-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center; /* vertically center the text next to the image */
+	padding-right: 1rem;
+}
+
+@media (max-width: 900px) {
+	.about-grid {
+		grid-template-columns: 1fr;
+		gap: 1.25rem;
+	}
+
+	.about-media img {
+		height: auto;
+		max-height: 380px;
+	}
+
+	.about-media {
+		display: flex;
+		align-items: center; /* center image vertically within its column */
+		justify-content: center; /* center horizontally */
+		padding-top: 6rem; /* push image further down so top isn't cut by header */
+	}
+}

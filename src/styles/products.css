@@ -1,0 +1,395 @@
+.products-section {
+  padding: 4rem 0;
+  background: white;
+}
+
+.products-section h2 {
+  text-align: center;
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+.products-section .lead {
+  text-align: center;
+  color: #6c757d;
+  font-size: 1.1rem;
+  margin-bottom: 3rem;
+}
+
+/* Controles de búsqueda y filtros */
+.products-controls {
+  margin-bottom: 3rem;
+}
+
+.search-box {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 1rem 1.5rem 1rem 3rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 50px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.search-icon {
+  position: absolute;
+  left: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  pointer-events: none;
+}
+
+.category-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.filter-btn {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #e0e0e0;
+  background: white;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #6c757d;
+}
+
+.filter-btn:hover {
+  border-color: #667eea;
+  color: #667eea;
+  transform: translateY(-2px);
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: #667eea;
+}
+
+/* Grid de productos */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.product-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid transparent;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  border-color: #667eea;
+}
+
+.product-media {
+  position: relative;
+  background: #f8f9fa;
+  padding: 0;
+  /* Use a consistent aspect ratio so product images behave uniformly */
+  aspect-ratio: 3 / 4; /* tall product bags look natural */
+  height: auto;
+  max-height: min(52vh, 520px);
+  width: 100%;
+  display: flex;
+  align-items: center; /* center vertically by default */
+  justify-content: center; /* center horizontally */
+  transition: height .2s ease, padding .2s ease;
+  overflow: hidden; /* ensure scaled images don't overflow layout */
+}
+
+.product-media img {
+  width: auto;
+  height: 100%; /* fill the media container height while keeping aspect */
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* do not crop, preserve shape */
+  object-position: center center; /* center content */
+  /* Use CSS variables so we can tune each product to visually match Dairy America
+     while keeping hover behavior uniform. Defaults ensure no change if class missing. */
+  --base-scale: 1;
+  --hover-scale: 1.05;
+  --translateY: 0;
+  transform: translateY(var(--translateY)) scale(var(--base-scale));
+  transition: transform .25s ease;
+  will-change: transform;
+  display: block;
+  margin: 0 auto;
+  /* Disuasión contra copiar/arrastrar imágenes: evita drag y selección en navegadores modernos */
+  -webkit-user-drag: none;
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+}
+
+/* También para la vista detalle */
+.detail-media img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+}
+
+/* Remove per-product base scaling: all images should share the same base size */
+
+.product-card:hover .product-media img {
+  /* On hover use the per-image --hover-scale so all images increase uniformly */
+  transform: translateY(var(--translateY)) scale(var(--hover-scale));
+  transform-origin: center center;
+}
+
+/* Per-product visual tuning: set base & hover scales so Purísima, NZ and Colún
+   visually match Dairy America without cropping or distortion. Adjust values if needed. */
+.product-media img.scale-dairy { --base-scale: 0.92; --hover-scale: 0.966; }
+/* Increased per request: make Purísima, NZ and Colún larger relative to Dairy */
+/* Purísima boosted per request */
+.product-media img.scale-purisima { --base-scale: 1.90; --hover-scale: 1.995; }
+.product-media img.scale-zelanda { --base-scale: 1.85; --hover-scale: 1.9425; }
+.product-media img.scale-colun { --base-scale: 1.65; --hover-scale: 1.7325; }
+
+/* Make Harina PAN variants visually similar to Harina Nieve (bigger, centered) */
+.product-media img.scale-pan { --base-scale: 1.30; --hover-scale: 1.365; }
+.product-media img.scale-pan-amarilla { --base-scale: 1.70; --hover-scale: 1.785; }
+.product-media img.scale-pan-cachapa { --base-scale: 1.65; --hover-scale: 1.7325; }
+
+/* Fine-tune each problematic milk bag so it is fully visible and centered
+   without being cropped. We reduce effective visual footprint by constraining
+   max-height/max-width while keeping object-fit: contain. */
+.product-media img.scale-colun {
+  /* Slightly larger and nudged up so the Colún bag fills more of the box but remains fully visible */
+  --base-scale: 1.60;
+  --hover-scale: 1.68;
+  --translateY: -6%; /* lift image a bit to reduce top white space */
+  height: auto !important;
+  max-height: 96% !important;
+  max-width: 78% !important;
+  object-position: center top !important; /* align content toward top to show the whole bag */
+  align-self: center !important;
+}
+.product-media img.scale-purisima {
+  --base-scale: 1.90;
+  --hover-scale: 1.995;
+  height: auto !important;
+  max-height: 96% !important;
+  max-width: 80% !important;
+  object-position: center center !important;
+}
+.product-media img.scale-zelanda {
+  --base-scale: 1.85;
+  --hover-scale: 1.9425;
+  height: auto !important;
+  max-height: 94% !important;
+  max-width: 74% !important;
+  object-position: center center !important;
+}
+.product-media img.scale-pan,
+.product-media img.scale-pan-amarilla,
+.product-media img.scale-pan-cachapa {
+  /* tuned sizes: pan reduced slightly, variants increased to match Nieve */
+  height: auto !important;
+  max-height: 90% !important;
+  max-width: 84% !important;
+  object-position: center center !important;
+}
+
+/* Ensure the PAN images are perfectly centered in their media box */
+.product-card .product-media img.scale-pan,
+.product-card .product-media img.scale-pan-amarilla,
+.product-card .product-media img.scale-pan-cachapa {
+  --translateY: 0 !important;
+  transform: translateY(0) scale(var(--base-scale)) !important;
+  align-self: center !important;
+  margin: 0 auto !important;
+  object-position: center center !important;
+}
+/* Force vertical centering for all product images as a safety-net */
+.product-media img {
+  align-self: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+/* Para imágenes con escala base, mantener esa escala en hover (no aumentar). */
+/* Remove any per-product hover exceptions and per-product base scales
+   so all images behave identically. If specific products need slight
+   adjustments later, we will add small non-breaking modifiers. */
+
+/* Responsive adjustments */
+
+@media (max-width: 1024px) {
+  .product-media { aspect-ratio: 3 / 4; max-height: 48vh; }
+}
+
+@media (max-width: 768px) {
+  .product-media { aspect-ratio: 4 / 5; max-height: 40vh; }
+  .product-media img { height: 85%; }
+}
+
+@media (max-width: 480px) {
+  .product-media { aspect-ratio: 3 / 4; max-height: 36vh; }
+}
+
+/* A small utility to ensure images are centered if container grows taller */
+.product-media.center-top { align-items: flex-start; }
+
+.product-body {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-body h3 {
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem 0;
+  color: #2c3e50;
+}
+
+.product-body .category-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: #e3f2fd;
+  color: #1976d2;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.product-body .desc {
+  color: #6c757d;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  flex: 1;
+}
+
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: #25d366;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.btn-whatsapp:hover {
+  background: #20ba5a;
+  transform: scale(1.05);
+}
+
+/* Sin productos */
+.no-products {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #6c757d;
+}
+
+.no-products p {
+  font-size: 1.2rem;
+}
+
+/* Contador de productos */
+.products-count {
+  text-align: center;
+  color: #6c757d;
+  font-size: 0.95rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e0e0e0;
+  /* Hide product count per user request */
+  display: none !important;
+}
+
+/* Accent colors */
+.product-name.accent-yellow { color: #f2b705; }
+.product-name.accent-orange { color: #ff8000; }
+.product-name.accent-blue { color: #1e90ff; }
+.product-name.accent-red { color: #e63946; }
+.product-name.accent-brown { color: #8b4513; }
+.product-name.accent-green { color: #2e8b57; }
+.product-name.accent-pink { color: #e91e63; }
+
+@media (max-width: 1024px) {
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .products-section {
+    padding: 3rem 0;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .product-media {
+    height: 520px;
+    padding: 0;
+  }
+
+  .category-filters {
+    gap: 0.75rem;
+  }
+
+  .filter-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .search-box {
+    margin-bottom: 1.5rem;
+  }
+
+  .search-input {
+    padding: 0.9rem 1.2rem 0.9rem 2.8rem;
+  }
+
+  .product-media {
+    height: 420px;
+  }
+}

@@ -1,0 +1,364 @@
+.product-detail {
+  padding: 4rem 0;
+  background: #f8f9fa;
+  min-height: calc(100vh - 120px);
+}
+
+.detail-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.back-btn {
+  background: #ffffff;
+  border: 1px solid #e6e9ee;
+  color: #1f2937;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: none;
+  /* no transitions or hover effects per request */
+}
+
+/* Keep hover minimal (no color/transform changes) to satisfy 'no exaggerated hover' */
+.back-btn:hover {
+  opacity: 0.98;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  background: white;
+  border-radius: 20px;
+  padding: 3rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2.5rem;
+}
+
+.detail-media {
+  --media-padding: 20px; /* uniform inner gap between image and box */
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 0; /* padding moved to inner wrapper for consistent gutters */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  /* Balanced height: large on desktop but bounded by viewport */
+  min-height: min(60vh, 640px);
+  max-height: 80vh;
+  box-sizing: border-box;
+}
+
+/* Inner wrapper provides the uniform padding/gutter around the image */
+.detail-media-inner {
+  width: 100%;
+  max-width: 820px; /* large but contained for product presentation */
+  height: 100%;
+  max-height: calc(80vh - 40px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--media-padding);
+  box-sizing: border-box;
+  background: transparent;
+}
+
+/* Per-product tuning: Purísima should use the available vertical space and appear large and centered */
+.detail-media.media-purisima {
+  /* give Purísima a slightly taller minimum so the bag displays large */
+  min-height: min(76vh, 840px);
+}
+.detail-media.media-purisima .detail-media-inner {
+  /* allow wider container for this product and reduce top padding so the image can "touch" the top */
+  max-width: 960px;
+  padding-top: 8px; /* small inset so image nears top but doesn't overlap border */
+}
+.detail-media.media-purisima .detail-image {
+  /* Prefer filling height first so the bag appears large and complete
+     while preserving aspect ratio (width:auto). Use a small inset gap.
+     Increase height so the image nearly touches the top but stays contained. */
+  height: 98%;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  object-position: top center; /* align toward the top so the bag 'choca' la parte superior */
+}
+
+/* Per-product tuning: Dairy America should be slightly smaller and fully visible without appearing cropped */
+.detail-media.media-dairy {
+  /* a bit less tall than default so the bag doesn't appear blown up */
+  min-height: min(62vh, 680px);
+}
+.detail-media.media-dairy .detail-media-inner {
+  max-width: 760px; /* slightly narrower to keep image proportioned */
+  padding-top: 18px;
+}
+.detail-media.media-dairy .detail-image {
+  /* Prefer filling height moderately so bag looks large but not oversized */
+  height: 84%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: center center; /* center vertically and horizontally */
+}
+
+/* Per-product tuning: New Zealand (Fonterra) should appear larger but contained */
+.detail-media.media-zelanda {
+  /* larger presence but less than Purísima */
+  min-height: min(74vh, 820px);
+}
+.detail-media.media-zelanda .detail-media-inner {
+  max-width: 900px;
+  padding-top: 10px; /* reduce top gap so image gets closer to top */
+}
+.detail-media.media-zelanda .detail-image {
+  /* nearly full height but contained to avoid overflow */
+  height: 96%;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  object-position: top center; /* align slightly up so upper edge is visible */
+}
+
+/* Image behavior:
+   - Use 'contain' so the full image is always visible
+   - Respect both axes: scale up to either max-width or max-height
+   - Centered in both axes inside the inner wrapper
+   - No transforms or negative margins that could cut the image */
+.detail-media .detail-image,
+.detail-media img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: center center;
+  display: block;
+  margin: 0 auto;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  border-radius: 6px;
+}
+
+/* Ensure that in narrow viewports the image uses width first (fits nicely) */
+@media (max-width: 768px) {
+  .detail-media {
+    min-height: 42vh;
+    max-height: none;
+  }
+  .detail-media-inner {
+    max-width: 100%;
+    padding: calc(var(--media-padding) * 0.6);
+  }
+  .detail-media .detail-image,
+  .detail-media img {
+    width: 100%;
+    height: auto;
+    max-height: none;
+  }
+  /* Purísima mobile: keep full width but avoid excessive vertical padding */
+  .detail-media.media-purisima {
+    min-height: 50vh;
+  }
+  .detail-media.media-purisima .detail-image {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+  /* New Zealand mobile: allow a bit more vertical space and full width scaling */
+  .detail-media.media-zelanda {
+    min-height: 54vh;
+  }
+  .detail-media.media-zelanda .detail-image {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+}
+
+.detail-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.category-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: #e3f2fd;
+  color: #1976d2;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.detail-body h1 {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  color: #2c3e50;
+  margin: 0;
+}
+
+.detail-body .desc {
+  font-size: 1.1rem;
+  color: #6c757d;
+  line-height: 1.6;
+}
+
+.product-info {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  margin-top: 1rem;
+  border: 2px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.product-info:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  border-color: #667eea;
+}
+
+.product-info h3 {
+  font-size: 1.2rem;
+  margin: 0 0 1rem 0;
+  color: #2c3e50;
+}
+
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0;
+}
+
+.info-item {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 1rem;
+}
+
+.info-item dt {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.info-item dd {
+  margin: 0;
+  color: #6c757d;
+}
+
+.detail-actions {
+  margin-top: 1rem;
+}
+
+.btn-whatsapp-large {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.25rem 2.5rem;
+  background: #25d366;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+}
+
+.btn-whatsapp-large:hover {
+  background: #20ba5a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
+/* Productos relacionados */
+.related-products {
+  margin-top: 3.2rem;
+}
+
+.related-products h2 {
+  text-align: center;
+  font-size: clamp(1.8rem, 3vw, 2.2rem);
+  color: #2c3e50;
+  margin-bottom: 2rem; /* revert to normal spacing */
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  padding-top: 0; /* no artificial push */
+}
+
+@media (max-width: 1024px) {
+  .detail-grid {
+    gap: 2rem;
+    padding: 1.75rem; /* proportionally reduced */
+  }
+}
+
+@media (max-width: 768px) {
+  .product-detail {
+    padding: 2rem 0;
+  }
+
+  .detail-container {
+    padding: 0 1rem;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 1.5rem;
+  }
+
+  .detail-media {
+    padding: 0;
+    min-height: 300px; /* mobile base (smaller) */
+  }
+  .detail-media.media-purisima { min-height: 540px; } /* Purísima mobile: más grande */
+  .detail-media.media-dairy { min-height: 300px; }
+  .detail-media.media-zelanda { min-height: 420px; align-items: flex-start; padding-top: 0; } /* Zelanda mobile: alineada arriba */
+  .detail-media.media-zelanda img.zelanda-img { margin-top: -160px; } /* reduce espacio superior en móvil: aumentar para subir imagen */
+
+  .detail-media img {
+    max-height: none;
+  }
+
+  .info-item {
+    grid-template-columns: 120px 1fr;
+    gap: 0.75rem;
+  }
+
+  .btn-whatsapp-large {
+    width: 100%;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+
+  .related-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* (Removed override that prevented Dairy hover; Dairy now follows Purísima rules above) */
+

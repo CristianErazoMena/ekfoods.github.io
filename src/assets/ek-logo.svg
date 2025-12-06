@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="150" viewBox="0 0 400 150">
+  <rect width="100%" height="100%" fill="transparent" />
+  <text x="10" y="60" font-size="48" fill="#1976a5" font-family="Arial, Helvetica, sans-serif">EK</text>
+  <text x="80" y="72" font-size="36" fill="#2b8a9e" font-family="Arial, Helvetica, sans-serif">Foods</text>
+  <text x="10" y="110" font-size="14" fill="#777">Nutrición en todos nuestros productos</text>
+</svg>
