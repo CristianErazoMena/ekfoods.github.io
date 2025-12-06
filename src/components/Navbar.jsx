@@ -28,17 +28,19 @@ export default function Navbar() {
       return
     }
 
-    // If clicking the brand/root, act like a refresh: navigate home, clear search/category and scroll to top
+    // If clicking the brand/root or 'Inicio', always go home and scroll to top
     if (id === 'root') {
       // Reset global search and category
       window.dispatchEvent(new CustomEvent('productSearch', { detail: '' }))
       window.dispatchEvent(new CustomEvent('productCategory', { detail: 'Todos' }))
+      sessionStorage.removeItem('pendingSearch')
+      sessionStorage.removeItem('pendingScroll')
       if (location.pathname !== '/') {
-        // navigate home and ensure immediate top position
-        sessionStorage.setItem('pendingScroll', 'root')
         navigate('/')
+        // Will scroll to top on mount via ScrollToTop
+      } else {
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
       }
-      window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
       return
     }
 
