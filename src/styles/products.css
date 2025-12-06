@@ -111,42 +111,46 @@
 
 .product-media {
   position: relative;
-  background: #f8f9fa;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   padding: 0;
-  /* Use a consistent aspect ratio so product images behave uniformly */
-  aspect-ratio: 3 / 4; /* tall product bags look natural */
+  aspect-ratio: 3 / 4;
   height: auto;
   max-height: min(52vh, 520px);
   width: 100%;
   display: flex;
-  align-items: center; /* center vertically by default */
-  justify-content: center; /* center horizontally */
+  align-items: center;
+  justify-content: center;
   transition: height .2s ease, padding .2s ease;
-  overflow: hidden; /* ensure scaled images don't overflow layout */
+  overflow: hidden;
 }
 
 .product-media img {
   width: auto;
-  height: 100%; /* fill the media container height while keeping aspect */
+  height: 100%;
   max-width: 100%;
   max-height: 100%;
-  object-fit: contain; /* do not crop, preserve shape */
-  object-position: center center; /* center content */
-  /* Use CSS variables so we can tune each product to visually match Dairy America
-     while keeping hover behavior uniform. Defaults ensure no change if class missing. */
+  object-fit: contain;
+  object-position: center center;
   --base-scale: 1;
   --hover-scale: 1.05;
   --translateY: 0;
   transform: translateY(var(--translateY)) scale(var(--base-scale));
-  transition: transform .25s ease;
+  transition: transform .25s ease, opacity .3s ease;
   will-change: transform;
   display: block;
   margin: 0 auto;
-  /* Disuasión contra copiar/arrastrar imágenes: evita drag y selección en navegadores modernos */
   -webkit-user-drag: none;
   user-drag: none;
   user-select: none;
   -moz-user-select: none;
+  opacity: 0;
+  animation: fadeIn 0.3s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
 }
 
 /* También para la vista detalle */

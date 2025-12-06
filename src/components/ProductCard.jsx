@@ -21,13 +21,22 @@ export default function ProductCard({ product, onOpen }) {
       }
     >
       <div className="product-media">
+        <div style={{ 
+          background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
+          position: 'absolute',
+          inset: 0,
+          zIndex: -1
+        }} />
         <img
           src={product.image}
           alt={product.name}
           draggable="false"
           loading="lazy"
           decoding="async"
-          fetchpriority="low"
+          style={{ 
+            backgroundColor: 'transparent',
+            imageRendering: '-webkit-optimize-contrast'
+          }}
           className={
             product.id === 1
               ? 'scale-purisima'
