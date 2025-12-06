@@ -26,6 +26,8 @@ export default function ProductCard({ product, onOpen }) {
           alt={product.name}
           draggable="false"
           loading="lazy"
+          decoding="async"
+          fetchpriority="low"
           className={
             product.id === 1
               ? 'scale-purisima'

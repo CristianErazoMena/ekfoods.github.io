@@ -17,16 +17,12 @@ function ScrollToTop() {
   const navType = useNavigationType()
 
   useEffect(() => {
-    // On page load or refresh (navType === undefined or 'PUSH'), scroll to top
-    // Only skip scroll on POP (back/forward navigation)
+    // Only scroll to top on programmatic navigation (not on refresh or back/forward)
     if (navType === 'POP') return
-    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    if (navType === 'PUSH') {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    }
   }, [pathname, navType])
-
-  // Also ensure scroll to top on initial mount (refresh/F5)
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
-  }, [])
   
   return null
 }

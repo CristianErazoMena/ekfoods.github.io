@@ -39,6 +39,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
+  content-visibility: auto;
+}
+
+img {
+  content-visibility: auto;
+  contain-intrinsic-size: 300px;
 }
 
 /* Layout */
