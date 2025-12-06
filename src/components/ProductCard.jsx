@@ -25,6 +25,7 @@ export default function ProductCard({ product, onOpen }) {
           src={product.image}
           alt={product.name}
           draggable="false"
+          loading="lazy"
           className={
             product.id === 1
               ? 'scale-purisima'

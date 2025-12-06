@@ -7,7 +7,7 @@ import ProductDetail from './components/ProductDetail'
 import AboutUs from './components/AboutUs'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-import { BrowserRouter, Routes, Route, useLocation, useParams, useNavigationType } from 'react-router-dom'
+import { HashRouter, Routes, Route, useLocation, useParams, useNavigationType } from 'react-router-dom'
 import products from './data/products'
 
 console.log('App.jsx loaded, products:', products ? products.length : 0)
@@ -29,7 +29,7 @@ function ScrollToTop() {
 export default function App() {
   console.log('App rendering')
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="app-root">
         <ScrollToTop />
         <Navbar />
@@ -63,7 +63,7 @@ export default function App() {
         </main>
         <Footer />
       </div>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
