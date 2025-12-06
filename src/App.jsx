@@ -14,14 +14,19 @@ console.log('App.jsx loaded, products:', products ? products.length : 0)
 
 function ScrollToTop() {
   const { pathname } = useLocation()
-  // Do not force-scroll on POP navigation (back/forward) to preserve browser's saved position.
   const navType = useNavigationType()
 
   useEffect(() => {
+    // On page load or refresh (navType === undefined or 'PUSH'), scroll to top
+    // Only skip scroll on POP (back/forward navigation)
     if (navType === 'POP') return
-    // Use instant (auto) scrolling when changing routes programmatically
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
   }, [pathname, navType])
+
+  // Also ensure scroll to top on initial mount (refresh/F5)
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }, [])
   
   return null
 }
