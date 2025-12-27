@@ -3,6 +3,7 @@
   width: 100%;
   height: 600px;
   overflow: hidden;
+  margin-top: 0;
 }
 
 .hero-slider {
@@ -22,6 +23,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .hero-slide.active {
@@ -44,6 +48,13 @@
   z-index: 2;
   padding: 2rem;
   max-width: 800px;
+}
+
+/* Force hero text to be white, overriding global heading color */
+.hero-content h1,
+.hero-content .subtitle,
+.hero-content .description {
+  color: #fff;
 }
 
 .hero-content h1 {

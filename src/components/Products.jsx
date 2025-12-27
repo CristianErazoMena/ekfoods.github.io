@@ -121,8 +121,8 @@ export default function Products({ onOpen }) {
 
   const filteredProducts = products.filter((p) => {
     // Normalize strings to make search accent-insensitive (e.g. 'harina' matches 'harína')
-    const normalize = (s) => String(s || '').normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase()
-    const term = normalize((searchTerm || '').trim())
+    const normalize = (s) => String(s || '').normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase().trim()
+    const term = normalize((searchTerm || ''))
     const nameNorm = normalize(p.name)
     const descNorm = normalize(p.description)
     const matchesSearch = !term || nameNorm.includes(term) || descNorm.includes(term)

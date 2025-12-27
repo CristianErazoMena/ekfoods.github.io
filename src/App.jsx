@@ -31,9 +31,9 @@ export default function App() {
   console.log('App rendering')
   return (
     <HashRouter>
+      <ScrollToTop />
+      <Navbar />
       <div className="app-root">
-        <ScrollToTop />
-        <Navbar />
         <main>
           <Routes>
             <Route

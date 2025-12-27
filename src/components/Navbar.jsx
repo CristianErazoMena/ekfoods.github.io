@@ -73,29 +73,38 @@ export default function Navbar() {
   const handleSearchChange = (e) => {
     const val = e.target.value
     setSearchValue(val)
-    // Ensure we're on the home/products page so the Products component is mounted
-      const doDispatch = () => {
-      window.dispatchEvent(new CustomEvent('productSearch', { detail: val }))
-      // scroll to products so user sees results as they type
-      const el = document.getElementById('products')
-      if (el) {
-        const header = document.querySelector('.site-header')
-        const headerHeight = header ? header.offsetHeight : 0
-        const rect = el.getBoundingClientRect()
-        const absoluteTop = rect.top + window.pageYOffset
-        const offset = Math.max(0, absoluteTop - headerHeight - 16)
-        	window.scrollTo({ top: offset, behavior: 'auto' })
-      }
-    }
+  }
 
+  const handleSearchSubmit = () => {
+    // Normalize the search value to remove accents
+    const normalize = (s) => String(s || '').normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase()
+    const normalizedVal = normalize(searchValue)
+    
     if (location.pathname !== '/') {
       // persist the search and intent to view products so Home can handle immediately
-      sessionStorage.setItem('pendingSearch', val)
+      sessionStorage.setItem('pendingSearch', normalizedVal)
       sessionStorage.setItem('pendingScroll', 'products')
       navigate('/')
     } else {
-      doDispatch()
+      // Dispatch search event
+      window.dispatchEvent(new CustomEvent('productSearch', { detail: normalizedVal }))
+      // scroll to products
+      setTimeout(() => {
+        const el = document.getElementById('products')
+        if (el) {
+          const header = document.querySelector('.site-header')
+          const headerHeight = header ? header.offsetHeight : 0
+          const rect = el.getBoundingClientRect()
+          const absoluteTop = rect.top + window.pageYOffset
+          const offset = Math.max(0, absoluteTop - headerHeight - 16)
+          window.scrollTo({ top: offset, behavior: 'auto' })
+        }
+      }, 50)
     }
+    
+    // Limpiar el buscador
+    setSearchValue('')
+    closeSearch()
   }
 
   useEffect(() => {
@@ -127,7 +136,7 @@ export default function Navbar() {
 
   return (
     <header className={`site-header ${scrolled ? 'scrolled' : ''}`}>
-      <div className="container navbar-inner">
+      <div className="navbar-inner">
         <div className="brand">
           <button 
             className="brand-logo-btn"
@@ -159,7 +168,7 @@ export default function Navbar() {
           </button>
         </nav>
         {showSearch && (
-          <div className={`search-overlay ${!searchOpen ? 'closing' : ''}`} role="dialog" aria-label="Buscar productos" onMouseLeave={closeSearch}>
+          <div className={`search-overlay ${!searchOpen ? 'closing' : ''}`} role="dialog" aria-label="Buscar productos">
             <div className="search-inner">
               <div className="search-box-expanded left-aligned">
                 <span className="icon" aria-hidden="true">
@@ -174,6 +183,11 @@ export default function Navbar() {
                   placeholder="Buscar productos..."
                   value={searchValue}
                   onChange={handleSearchChange}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      handleSearchSubmit()
+                    }
+                  }}
                   aria-label="Campo de búsqueda de productos"
                 />
               </div>

@@ -26,6 +26,9 @@ import cafe2 from './cafe-2.svg'
 import arroz from './arroz.svg'
 import azucar from './azucar.svg'
 import aceite from './aceite-removebg-preview.png'
+import cafeFondo from './cafe fondo.jpg'
+import lecheFondo from './lechefondo3.png'
+import maizFondo from './maiz.jpg'
 import vaca from './vaca.png'
 import anis_cartujo_removebg from './anis_cartujo-removebg-preview_upscayl_4x_upscayl-standard-4x.png'
 import mavesa_removebg from './mavesa-removebg-preview_upscayl_4x_upscayl-standard-4x.png'
@@ -60,15 +63,18 @@ export const productImages = {
   cafe: cafe1,
   cafe2: cafe2,
   arroz: arroz,
-  azucar: azucar
-  ,vaca: vaca,
+  azucar: azucar,
+  vaca: vaca,
   anis_cartujo: anis_cartujo_removebg,
   castellani: castellani_removebg,
   mavesa: mavesa_removebg,
   leche_preview: leche_preview,
   harina_preview: harina_preview,
   cafe_preview: cafe_preview,
-  aceite: aceite
+  aceite: aceite,
+  cafe_fondo: cafeFondo,
+  leche_fondo: lecheFondo,
+  maiz_fondo: maizFondo
 }
 
 export default productImages

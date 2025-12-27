@@ -1,9 +1,10 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import '../styles/footer.css'
 
 export default function Footer() {
   const navigate = useNavigate()
+  const location = useLocation()
 
   const scrollToId = (id) => {
     // small timeout to allow navigation to complete when needed
@@ -26,7 +27,7 @@ export default function Footer() {
       window.dispatchEvent(new CustomEvent('productCategory', { detail: { category } }))
     }
 
-    if (window.location.pathname === '/') {
+    if (location.pathname === '/') {
       doAction()
     } else {
       // Persist intent and navigate; Products will read it on mount
@@ -38,12 +39,17 @@ export default function Footer() {
 
   const handleAbout = (e) => {
     e.preventDefault()
-    navigate('/about')
+    if (location.pathname === '/about') {
+      // Si ya estamos en la página de Nosotros, hacer scroll hacia arriba
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    } else {
+      navigate('/about')
+    }
   }
 
   const handleContact = (e) => {
     e.preventDefault()
-    if (window.location.pathname === '/') {
+    if (location.pathname === '/') {
       scrollToId('contact')
     } else {
       sessionStorage.setItem('pendingScroll', 'contact')
